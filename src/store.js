@@ -9,7 +9,8 @@ export default new Vuex.Store({
     // 所有任务列表
     list: [],
     inputValue: 'type something',
-    nextId: 5
+    nextId: 5,
+    viewKey: 'all'
   },
   mutations: {
     // 为state中的List赋值
@@ -46,6 +47,9 @@ export default new Vuex.Store({
     // 清除已完成
     cleanDone(state) {
       state.list = state.list.filter(x => x.done === false)
+    },
+    changeViewKey(state, key) {
+      state.viewKey = key
     }
 
   },
@@ -59,7 +63,18 @@ export default new Vuex.Store({
   },
   getters: {
     unDoneLength(state) {
-      return state.list.filter(x => x.done === false).length
+      return state.list.filter(x => !x.done).length
+    },
+    infoList(state) {
+      if (state.viewKey === 'all') {
+        return state.list
+      }
+      if (state.viewKey === 'undone') {
+        return state.list.filter(x => !x.done)
+      }
+      if (state.viewKey === 'done') {
+        return state.list.filter(x => x.done)
+      }
     }
   }
 })

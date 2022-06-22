@@ -7,7 +7,7 @@
       @change="handleInputChange"
     />
     <a-button type="primary" @click="addItemToList">添加事项</a-button>
-    <a-list bordered :data-source="list" class="dt_list">
+    <a-list bordered :data-source="infoList" class="dt_list">
       <a-list-item slot="renderItem" slot-scope="item">
         <!--复选框-->
         <a-checkbox
@@ -30,9 +30,21 @@
         <span>剩余{{ unDoneLength }}条未完成</span>
         <!--操作按钮-->
         <a-button-group>
-          <a-button type="primary">全部</a-button>
-          <a-button>未完成</a-button>
-          <a-button>已完成</a-button>
+          <a-button
+            :type="viewKey === 'all' ? 'primary' : 'default'"
+            @click="changeList('all')"
+            >全部</a-button
+          >
+          <a-button
+            :type="viewKey === 'undone' ? 'primary' : 'default'"
+            @click="changeList('undone')"
+            >未完成</a-button
+          >
+          <a-button
+            :type="viewKey === 'done' ? 'primary' : 'default'"
+            @click="changeList('done')"
+            >已完成</a-button
+          >
         </a-button-group>
         <!--把已经完成的任务清空-->
         <a @click="clean">清除已完成</a>
@@ -48,8 +60,8 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['list', 'inputValue']),
-    ...mapGetters(['unDoneLength'])
+    ...mapState(['list', 'inputValue', 'viewKey']),
+    ...mapGetters(['unDoneLength', 'infoList'])
   },
   methods: {
     ...mapMutations(['setInputValue']),
@@ -78,6 +90,9 @@ export default {
     },
     clean() {
       this.$store.commit('cleanDone')
+    },
+    changeList(key) {
+      this.$store.commit('changeViewKey', key)
     }
   },
   created() {
