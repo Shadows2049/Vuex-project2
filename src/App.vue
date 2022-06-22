@@ -27,7 +27,7 @@
       <!--footer区域-->
       <div slot="footer" class="footer">
         <!--未完成的任务个数-->
-        <span>0条剩余</span>
+        <span>剩余{{ unDoneLength }}条未完成</span>
         <!--操作按钮-->
         <a-button-group>
           <a-button type="primary">全部</a-button>
@@ -41,14 +41,15 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data() {
     return {}
   },
   computed: {
-    ...mapState(['list', 'inputValue'])
+    ...mapState(['list', 'inputValue']),
+    ...mapGetters(['unDoneLength'])
   },
   methods: {
     ...mapMutations(['setInputValue']),

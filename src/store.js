@@ -52,5 +52,10 @@ export default new Vuex.Store({
         context.commit('initList', data)
       })
     }
+  },
+  getters: {
+    unDoneLength(state) {
+      return state.list.filter(x => x.done === false).length
+    }
   }
 })
