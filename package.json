@@ -14,8 +14,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "ant-design-vue": "^1.7.8",
+    "axios": "^0.27.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -80,8 +83,8 @@
     "npm": ">= 3.0.0"
   },
   "browserslist": [
-    "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "android 4",
+    "opera 12"
   ]
 }
