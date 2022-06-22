@@ -29,6 +29,12 @@ export default new Vuex.Store({
       state.list.push(obj)
       state.nextId++
       state.inputValue = ''
+    },
+    removeItem(state, id) {
+      const i = state.list.findIndex(x => x.id === id)
+      if (i !== -1) {
+        state.list.splice(i, 1)
+      }
     }
   },
   actions: {
