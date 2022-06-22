@@ -10,7 +10,16 @@
     <a-list bordered :data-source="list" class="dt_list">
       <a-list-item slot="renderItem" slot-scope="item">
         <!--复选框-->
-        <a-checkbox>{{ item.info }}</a-checkbox>
+        <a-checkbox
+          :checked="item.done"
+          @change="
+            e => {
+              cbStatusChanged(e, item.id)
+            }
+          "
+        >
+          {{ item.info }}</a-checkbox
+        >
         <!--删除链接-->
         <a slot="actions" @click="removeItemById(item.id)">删除</a>
       </a-list-item>
@@ -58,6 +67,13 @@ export default {
     },
     removeItemById(id) {
       this.$store.commit('removeItem', id)
+    },
+    cbStatusChanged(e, id) {
+      const param = {
+        id: id,
+        status: e.target.checked
+      }
+      this.$store.commit('changeStatus', param)
     }
   },
   created() {
